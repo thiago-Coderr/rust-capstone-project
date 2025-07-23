@@ -3,6 +3,7 @@ use bitcoincore_rpc::bitcoin::{Amount, Txid};
 use std::fs::File;
 use std::io::Write;
 
+
 const RPC_URL_MINER: &str = "http://127.0.0.1:18443/wallet/Miner";
 const RPC_URL_TRADER: &str = "http://127.0.0.1:18443/wallet/Trader";
 const RPC_USER: &str = "alice";
