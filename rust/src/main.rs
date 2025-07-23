@@ -14,10 +14,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     )?;
 
     let trader_address = trader_rpc.get_new_address(None, None)?;
-    let trader_address = trader_address.require_network(bitcoincore_rpc::bitcoin::Network::Regtest)?;
+    let trader_address =
+        trader_address.require_network(bitcoincore_rpc::bitcoin::Network::Regtest)?;
 
     let miner_address = miner_rpc.get_new_address(None, None)?;
-    let miner_address = miner_address.require_network(bitcoincore_rpc::bitcoin::Network::Regtest)?;
+    let miner_address =
+        miner_address.require_network(bitcoincore_rpc::bitcoin::Network::Regtest)?;
 
     // Generate block to fund the miner
     miner_rpc.generate_to_address(101, &miner_address)?;
@@ -74,7 +76,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    let fee = tx.details.iter().map(|d| d.fee.unwrap_or(Amount::from_btc(0.0).unwrap())).sum::<Amount>().to_btc();
+    let fee = tx
+        .details
+        .iter()
+        .map(|d| d.fee.unwrap_or(Amount::from_btc(0.0).unwrap()))
+        .sum::<Amount>()
+        .to_btc();
 
     let block_hash = tx.info.blockhash.unwrap();
     let block = miner_rpc.get_block_info(&block_hash)?;
@@ -83,10 +90,26 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut file = File::create("../out.txt")?;
     writeln!(file, "Transaction ID: {}", txid)?;
     writeln!(file, "Miner's Input Address: {:?}", input_address)?;
-    writeln!(file, "Trader's Receiving Address: {}", trader_address)?;
-    writeln!(file, "Trader's Received Amount (in BTC): {:.8}", trader_output_amount)?;
-    writeln!(file, "Miner's Change Amount (in BTC): {:.8}", miner_change_amount)?;
-    writeln!(file, "Transaction Fees (in BTC): {:.8}", fee)?;
+    writeln!(
+        file,
+        "Trader's Receiving Address: {}",
+        trader_address
+    )?;
+    writeln!(
+        file,
+        "Trader's Received Amount (in BTC): {:.8}",
+        trader_output_amount
+    )?;
+    writeln!(
+        file,
+        "Miner's Change Amount (in BTC): {:.8}",
+        miner_change_amount
+    )?;
+    writeln!(
+        file,
+        "Transaction Fees (in BTC): {:.8}",
+        fee
+    )?;
     writeln!(
         file,
         "Block height at which the transaction is confirmed: {}",
@@ -100,4 +123,3 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-
