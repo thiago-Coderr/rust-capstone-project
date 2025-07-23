@@ -94,8 +94,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         miner_change_amount
     )?;
     writeln!(file, "Transaction Fees (in BTC): {:.8}", fee)?;
-    writeln!(file, "Block height at which the transaction is confirmed: {}", block_height)?;
-    writeln!(file, "Block hash at which the transaction is confirmed: {}", block_hash)?;
+    writeln!(
+        file,
+        "Block height at which the transaction is confirmed: {}",
+        block_height
+    )?;
+    writeln!(
+        file,
+        "Block hash at which the transaction is confirmed: {}",
+        block_hash
+    )?;
 
     Ok(())
 }
