@@ -51,7 +51,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut miner_change_amount = 0.0;
 
     for vout in &decoded_tx.vout {
-        if let Some(address) = vout.script_pub_key.addresses.as_ref().and_then(|a| a.first()) {
+        if let Some(address) = vout
+            .script_pub_key
+            .addresses
+            .as_ref()
+            .and_then(|a| a.first())
+        {
             if address == &trader_address {
                 trader_output_amount = vout.value.to_btc();
             } else if address == &miner_address {
