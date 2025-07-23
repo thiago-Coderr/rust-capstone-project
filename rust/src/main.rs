@@ -1,5 +1,5 @@
 use bitcoincore_rpc::{
-    bitcoin::{Address, Amount, Txid, Network},
+    bitcoin::{Address, Amount, Network, Txid},
     Auth, Client, RpcApi,
 };
 use serde_json::json;
